@@ -3,6 +3,20 @@ const bcrypt = require('bcryptjs');
 
 const Users = require('../users/users-model');
 
+router.get("/logout", (req, res) => {
+    if (req.session) {
+      req.session.destroy(err => {
+        if (err) {
+          res.json("Oh boy, are you leaving us?");
+        } else {
+          res.json("bye!");
+        }
+      });
+    } else {
+      res.send();
+    }
+  });
+
 router.post('/register', (req, res) => {
     let user = req.body;
     const hash = bcrypt.hashSync(user.password, 11);
