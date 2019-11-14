@@ -1,13 +1,23 @@
-const express = require('express'); // import the express package
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
 
-const server = express(); // creates the server
+const usersRouter = require('./users/users-route');
 
-// handle requests to the root of the api, the / route
+const server = express();
+
+
+server.use(helmet());
+server.use(express.json()); // IMPORTANT to .json your server
+server.use(cors());
+
+server.use('/api/users', usersRouter);
+
 server.get('/', (req, res) => {
-  res.send('Hello from Express');
+    res.json({
+        message: 'It is going well'
+    })
 });
 
-// watch for connections on port 5000
-server.listen(5000, () =>
-  console.log('Server running on http://localhost:5000')
-);
+
+module.exports = server;
