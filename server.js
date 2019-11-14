@@ -19,13 +19,6 @@ const sessionConfig = {
     },
     resave: false,
     saveUninitialized: false,
-    store: new KnexSessionStore({
-        knex: require('../db-config'),
-        tablename: 'sessions',
-        sidfieldname: 'sid',
-        createtable: true,
-        clearInterval: 1000 * 60 * 60
-      })
 };
 
 server.use(helmet());
